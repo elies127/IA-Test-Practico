@@ -1,16 +1,31 @@
 (deffacts datos (numeros 21 5 3 8 14 7)
 )
 
-defrule bucle
- (numeros ?v ?)
- =>
- (while (!= ?v 21)
- (printout t "Valve " ?v " is open" crlf)
- (bind ?v (- ?v 1))))
-
-
 (defrule suma
-?f <= (+ ?fin ?$x ?$y ?$z ?$a ?$b)
+ (numeros ?v ?$eliminados ?a ?b)
+ =>
+  ?res <- (+ (?a ?b))
+  ?v <- (- (?v ?res))
+)
+
+(defrule resta
+ (numeros ?v ?$eliminados ?a ?b)
+ =>
+  ?res <- (- (?a ?b))
+  ?v <- (- (?v ?res))
+)
+(defrule multi
+ (numeros ?v ?$eliminados ?a ?b)
+ =>
+  ?res <- (* (?a ?b))
+  ?v <- (- (?v ?res))
+)
+(defrule div
+ (numeros ?v ?$eliminados ?a ?b)
+ =>
+  ?res <- (div (?a ?b))
+  ?v <- (- (?v ?res))
+)
 
 
 
